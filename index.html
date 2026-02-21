@@ -3,257 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIVYA-DATA | AI Brand Numerology Analyzer</title>
+    <title>DIVYA-DATA | Vedic AI Brand Analyzer</title>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --blush-pink: #FCE7F3;
-            --soft-lilac: #EDE9FE;
-            --sky-blue: #E0F2FE;
+            --blush-pink: #FDF2F8;
+            --soft-lilac: #F5F3FF;
+            --sky-blue: #F0F9FF;
+            --deep-indigo: #4338CA;
+            --gold: #D97706;
             --cream-white: #FFFBFA;
-            --text-dark: #374151;
+            --text-dark: #1F2937;
             --accent-pink: #F472B6;
             --accent-purple: #8B5CF6;
-            --gradient-primary: linear-gradient(135deg, #F472B6 0%, #8B5CF6 100%);
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --gradient-cosmic: linear-gradient(135deg, #FCE7F3 0%, #EDE9FE 50%, #E0F2FE 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Optima', 'Candara', 'Segoe UI', sans-serif;
         }
 
         body {
-            background-color: var(--cream-white);
+            background: var(--gradient-cosmic);
             color: var(--text-dark);
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
+            line-height: 1.6;
+        }
+
+        /* Floating Sanskrit Elements */
+        .sanskrit-bg {
+            position: fixed;
+            font-size: 15rem;
+            color: rgba(139, 92, 246, 0.03);
+            z-index: -1;
+            user-select: none;
+            pointer-events: none;
         }
 
         /* Animated Background Glows */
         .glow-sphere {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.5;
-            animation: float 20s infinite alternate;
+            filter: blur(100px);
+            z-index: -2;
+            opacity: 0.6;
+            animation: float 25s infinite alternate ease-in-out;
         }
-        .glow-1 { width: 400px; height: 400px; background: var(--blush-pink); top: -100px; right: -100px; }
-        .glow-2 { width: 350px; height: 350px; background: var(--sky-blue); bottom: -100px; left: -100px; }
-        .glow-3 { width: 300px; height: 300px; background: var(--soft-lilac); top: 40%; left: 20%; }
+        .glow-1 { width: 600px; height: 600px; background: var(--blush-pink); top: -200px; right: -200px; }
+        .glow-2 { width: 500px; height: 500px; background: var(--sky-blue); bottom: -150px; left: -150px; }
 
         @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 100px) scale(1.1); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(80px, 150px) rotate(15deg); }
         }
 
         header {
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
         }
 
         .brand-logo {
-            font-size: 0.8rem;
-            letter-spacing: 0.3rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5rem;
             text-transform: uppercase;
-            font-weight: 700;
-            color: var(--accent-purple);
+            font-weight: 800;
+            color: var(--deep-indigo);
             margin-bottom: 0.5rem;
         }
 
         h1 {
-            font-size: 2.2rem;
-            font-weight: 300;
-            color: #1F2937;
+            font-size: 2.5rem;
+            font-weight: 200;
+            color: #111827;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
         }
 
         .subtitle {
-            font-size: 1rem;
-            color: #6B7280;
-            max-width: 400px;
+            font-size: 1.1rem;
+            color: #4B5563;
+            max-width: 500px;
             margin: 0 auto;
+            font-weight: 300;
         }
 
         main {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             padding: 1rem;
             z-index: 10;
         }
 
-        /* Glass Card Style */
         .card {
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 32px;
+            padding: 3rem;
             box-shadow: var(--shadow);
             margin-bottom: 2rem;
-            transition: transform 0.3s ease;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #4B5563;
+            margin-bottom: 0.7rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--deep-indigo);
             text-transform: uppercase;
-            letter-spacing: 0.05rem;
+            letter-spacing: 0.1rem;
         }
 
         input {
             width: 100%;
-            padding: 1rem;
-            border-radius: 14px;
-            border: 1px solid rgba(0,0,0,0.05);
-            background: rgba(255,255,255,0.8);
-            font-size: 1rem;
+            padding: 1.2rem;
+            border-radius: 18px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
             outline: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         input:focus {
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.1);
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.1);
         }
 
         .cta-button {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1.4rem;
             border: none;
-            border-radius: 14px;
-            background: var(--gradient-primary);
+            border-radius: 18px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #4338CA 100%);
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
-            transition: all 0.3s ease;
-            margin-top: 1rem;
+            box-shadow: 0 10px 30px rgba(67, 56, 202, 0.2);
+            transition: all 0.4s ease;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(67, 56, 202, 0.3);
         }
 
-        .cta-button:active {
-            transform: translateY(0);
+        /* Results Display */
+        #results { display: none; }
+
+        .analysis-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
-        /* Result Sections */
-        #results {
-            display: none;
-            animation: fadeIn 0.8s ease forwards;
+        .main-tattva {
+            font-size: 0.8rem;
+            background: var(--soft-lilac);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            color: var(--accent-purple);
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .score-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
         .score-circle {
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            background: var(--cream-white);
-            margin: 0 auto 1.5rem;
+            background: white;
+            border: 8px solid var(--soft-lilac);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 4px solid var(--soft-lilac);
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
         }
 
-        .score-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-purple);
+        .score-val { font-size: 3rem; font-weight: 800; color: var(--deep-indigo); line-height: 1; }
+        .score-label { font-size: 0.7rem; color: #9CA3AF; text-transform: uppercase; }
+
+        .insight-section {
+            background: rgba(255,255,255,0.5);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid white;
         }
 
-        .score-label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            color: #9CA3AF;
+        .insight-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--deep-indigo);
+            border-bottom: 1px solid var(--soft-lilac);
+            padding-bottom: 0.5rem;
         }
 
-        .grid-results {
+        .long-analysis {
+            font-size: 1rem;
+            color: #4B5563;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .grid-stats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
-            margin-top: 2rem;
+            margin: 2rem 0;
         }
 
-        .stat-card {
-            background: rgba(255,255,255,0.4);
-            padding: 1rem;
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .stat-val {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-top: 0.3rem;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #6B7280;
-            text-transform: uppercase;
-        }
-
-        .chart-container {
-            margin-top: 2rem;
-            height: 250px;
-        }
-
-        .suggestions {
-            margin-top: 2rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding-top: 1.5rem;
-        }
-
-        .chip-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .chip {
-            padding: 0.5rem 1rem;
+        .stat-item {
             background: white;
+            padding: 1.5rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            text-align: center;
             border: 1px solid var(--soft-lilac);
-            color: var(--accent-purple);
         }
 
+        .stat-val { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent-purple); }
+        .stat-lab { font-size: 0.7rem; text-transform: uppercase; color: #6B7280; margin-bottom: 5px; display: block;}
+
+        /* Loading */
         .loading-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--cream-white);
+            top:0; left:0; width:100%; height:100%;
+            background: white;
             z-index: 1000;
             display: none;
             flex-direction: column;
@@ -261,303 +262,278 @@
             justify-content: center;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid var(--soft-lilac);
-            border-top: 5px solid var(--accent-pink);
+        .chakra-loader {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--soft-lilac);
+            border-top: 2px solid var(--accent-purple);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .myth-badge {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: 600;
         }
 
-        footer {
-            margin-top: auto;
-            padding: 2rem;
-            font-size: 0.75rem;
-            color: #9CA3AF;
-            text-align: center;
-        }
+        .chart-wrap { height: 300px; margin: 3rem 0; }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .card { padding: 1.5rem; }
-            .grid-results { grid-template-columns: 1fr; }
-        }
+        footer { padding: 4rem 2rem; text-align: center; font-size: 0.8rem; color: #9CA3AF; }
+        
+        .sanskrit-text { font-family: 'serif'; color: var(--accent-purple); font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <div class="sanskrit-bg" style="top: 10%; left: 5%;">ॐ</div>
+    <div class="sanskrit-bg" style="bottom: 10%; right: 5%;">श्री</div>
+
     <div class="glow-sphere glow-1"></div>
     <div class="glow-sphere glow-2"></div>
-    <div class="glow-sphere glow-3"></div>
 
     <div class="loading-overlay" id="loader">
-        <div class="spinner"></div>
-        <p style="margin-top: 1rem; font-weight: 300; letter-spacing: 0.1rem;">ANALYZING VIBRATIONS...</p>
+        <div class="chakra-loader"></div>
+        <p style="margin-top: 2rem; font-weight: 300; letter-spacing: 0.3rem;">CONSULTING AKASHIC RECORDS...</p>
     </div>
 
     <header>
         <div class="brand-logo">DIVYA-DATA</div>
-        <h1>Brand Numerology</h1>
-        <p class="subtitle">Align your business energy with cosmic algorithms for maximum growth.</p>
+        <h1>Vedic AI Brand Insights</h1>
+        <p class="subtitle">Harnessing <span class="sanskrit-text">Vāsthu</span> and <span class="sanskrit-text">Jyotish</span> numerology for commercial dominance.</p>
     </header>
 
     <main>
         <section class="card" id="input-card">
             <div class="form-group">
-                <label for="brandName">Business Name</label>
-                <input type="text" id="brandName" placeholder="e.g. Divya Data Solutions" autocomplete="off">
+                <label>Business / Brand Name</label>
+                <input type="text" id="brandName" placeholder="Enter your sacred business name..." autocomplete="off">
             </div>
             <div class="form-group">
-                <label for="ownerDob">Owner Date of Birth</label>
+                <label>Founder's Birth Date</label>
                 <input type="date" id="ownerDob">
             </div>
-            <button class="cta-button" onclick="analyzeBrand()">Calculate Alignment</button>
+            <button class="cta-button" onclick="analyzeVedic()">Analyze Cosmic Alignment</button>
         </section>
 
         <section id="results">
             <div class="card">
-                <div class="score-circle">
-                    <span class="score-value" id="strengthScore">0</span>
-                    <span class="score-label">Strength</span>
+                <div class="analysis-header">
+                    <span class="main-tattva" id="tattvaTag">PANCHA TATTVA: AKASHA</span>
+                    <h2 id="brandTitle">Solar Leadership Archetype</h2>
+                    <span class="myth-badge" id="mythBadge">Regulated by: LORD SURYA</span>
                 </div>
-                
-                <p id="energyDescription" style="text-align: center; font-style: italic; color: #6B7280; font-size: 0.9rem; margin-bottom: 2rem;">
-                    Your brand carries the vibration of leadership and innovation.
-                </p>
 
-                <div class="grid-results">
-                    <div class="stat-card">
-                        <span class="stat-label">Name Number</span>
-                        <span class="stat-val" id="nameNum">-</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Growth Potential</span>
-                        <span class="stat-val" id="growthPct">-%</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Financial Freq</span>
-                        <span class="stat-val" id="financialScore">-</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Compatibility</span>
-                        <span class="stat-val" id="compatLevel">-</span>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span class="score-val" id="alignmentScore">0</span>
+                        <span class="score-label">Alignment</span>
                     </div>
                 </div>
 
-                <div class="chart-container">
-                    <canvas id="vibrationChart"></canvas>
+                <div class="grid-stats">
+                    <div class="stat-item">
+                        <span class="stat-lab">Vedic Root (Chaldean)</span>
+                        <span class="stat-val" id="vNameNum">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-lab">Dharma (Life Path)</span>
+                        <span class="stat-val" id="vLifePath">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-lab">Artha (Wealth Freq)</span>
+                        <span class="stat-val" id="vWealth">-</span>
+                    </div>
                 </div>
 
-                <div class="suggestions">
-                    <label>Suggested Launch Dates</label>
-                    <div class="chip-container" id="launchDates"></div>
+                <div class="insight-section">
+                    <h3>The <span class="sanskrit-text">Karma</span> of your Brand</h3>
+                    <div class="long-analysis" id="detailedInsight">
+                        <!-- Content injected via JS -->
+                    </div>
                 </div>
 
-                <div class="suggestions">
-                    <label>Optimized Spellings</label>
-                    <div class="chip-container" id="altSpellings"></div>
+                <div class="chart-wrap">
+                    <canvas id="vedicChart"></canvas>
                 </div>
 
-                <button class="cta-button" style="background: var(--sky-blue); color: var(--accent-purple); margin-top: 2rem;" onclick="location.reload()">New Analysis</button>
+                <div class="insight-section">
+                    <h3>Strategic <span class="sanskrit-text">Upaya</span> (Remedies)</h3>
+                    <p class="long-analysis" id="remedyText"></p>
+                </div>
+
+                <button class="cta-button" style="margin-top: 3rem; background: var(--soft-lilac); color: var(--deep-indigo);" onclick="location.reload()">Start New Ritual</button>
             </div>
         </section>
     </main>
 
     <footer>
-        &copy; 2024 DIVYA-DATA. All rights reserved. <br>
-        Numerology formulas based on Pythagorean standards.
+        &copy; 2024 DIVYA-DATA | SANSKRIT-AI TECHNOLOGY <br>
+        Built with Vedic Numerological Algorithms & Advanced Harmonic Resonance.
     </footer>
 
     <script>
-        // Mapping for Pythagorean Numerology
-        const pythagoreanMap = {
-            'a': 1, 'j': 1, 's': 1,
-            'b': 2, 'k': 2, 't': 2,
-            'c': 3, 'l': 3, 'u': 3,
-            'd': 4, 'm': 4, 'v': 4,
-            'e': 5, 'n': 5, 'w': 5,
-            'f': 6, 'o': 6, 'x': 6,
-            'g': 7, 'p': 7, 'y': 7,
-            'h': 8, 'q': 8, 'z': 8,
-            'i': 9, 'r': 9
+        // Chaldean Numerology Mapping (Vedic Preference)
+        const chaldeanMap = {
+            'a': 1, 'i': 1, 'j': 1, 'q': 1, 'y': 1,
+            'b': 2, 'k': 2, 'r': 2,
+            'c': 3, 'g': 3, 'l': 3, 's': 3,
+            'd': 4, 'm': 4, 't': 4,
+            'e': 5, 'h': 5, 'n': 5, 'x': 5,
+            'u': 6, 'v': 6, 'w': 6,
+            'o': 7, 'z': 7,
+            'f': 8, 'p': 8
         };
 
-        const energyArchetypes = {
-            1: "The Pioneer: Bold, leadership-oriented, and highly original.",
-            2: "The Harmonizer: Collaborative, balanced, and relationship-focused.",
-            3: "The Creator: Expressive, social, and full of creative spark.",
-            4: "The Architect: Disciplined, stable, and built for longevity.",
-            5: "The Visionary: Dynamic, adaptable, and freedom-seeking.",
-            6: "The Nurturer: Service-oriented, reliable, and magnetic.",
-            7: "The Analyst: Intellectual, mysterious, and specialized.",
-            8: "The Executive: Powerful, results-driven, and financially potent.",
-            9: "The Philanthropist: Global, compassionate, and transformative."
+        const deityMapping = {
+            1: { deity: "LORD SURYA (The Sun)", tattva: "AGNI (Fire)", title: "Solar Authority Archetype" },
+            2: { deity: "LORD CHANDRA (The Moon)", tattva: "JALA (Water)", title: "Lunar Empath Archetype" },
+            3: { deity: "LORD GURU (Jupiter)", tattva: "AKASHA (Ether)", title: "Celestial Expansion Archetype" },
+            4: { deity: "RAHU (The North Node)", tattva: "VAYU (Air)", title: "Shadow Innovator Archetype" },
+            5: { deity: "LORD BUDHA (Mercury)", tattva: "PRITHVI (Earth)", title: "Mercury Intellect Archetype" },
+            6: { deity: "LORD SHUKRA (Venus)", tattva: "JALA (Water)", title: "Venusian Luxury Archetype" },
+            7: { deity: "KETU (The South Node)", tattva: "AKASHA (Ether)", title: "Mystic Intuition Archetype" },
+            8: { deity: "LORD SHANI (Saturn)", tattva: "VAYU (Air)", title: "Karmic Structure Archetype" },
+            9: { deity: "LORD MANGALA (Mars)", tattva: "AGNI (Fire)", title: "Martian Warrior Archetype" }
         };
 
-        let myChart = null;
+        let vChart = null;
 
-        function getSingleDigit(n) {
+        function getChaldeanNumber(name) {
+            let sum = 0;
+            const cleaned = name.toLowerCase().replace(/[^a-z]/g, '');
+            for (let char of cleaned) {
+                sum += chaldeanMap[char] || 0;
+            }
+            return reduceToSingle(sum);
+        }
+
+        function reduceToSingle(n) {
             while (n > 9) {
-                n = n.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+                n = n.toString().split('').reduce((a, b) => a + parseInt(b), 0);
             }
             return n;
         }
 
-        function calculateNameNumber(name) {
+        function calculateVedicLifePath(dob) {
+            const digits = dob.replace(/-/g, '');
             let sum = 0;
-            const cleaned = name.toLowerCase().replace(/[^a-z]/g, '');
-            for (let char of cleaned) {
-                sum += pythagoreanMap[char] || 0;
+            for (let d of digits) sum += parseInt(d);
+            return reduceToSingle(sum);
+        }
+
+        function generateDetailedInsight(nameNum, lifePath, name) {
+            const archetype = deityMapping[nameNum];
+            const compatibility = nameNum === lifePath ? "Divine Synchronicity" : (Math.abs(nameNum-lifePath) <= 2 ? "Harmonic Flow" : "Karmic Friction");
+            
+            let text = `The vibration of <strong>${name}</strong> resonates with the number <strong>${nameNum}</strong>, governed by ${archetype.deity}. This indicates a brand essence rooted in <em>${archetype.tattva}</em>. <br><br>`;
+            
+            text += `In Vedic philosophy, your brand is currently manifesting its <strong>Artha</strong> (Wealth-Creation) potential through a ${archetype.title} framework. `;
+            
+            if (nameNum === 1 || nameNum === 8) {
+                text += `This is a "High-Gravity" brand. It requires significant discipline but offers unmatched market authority. You are not just selling a product; you are establishing a kingdom. `;
+            } else if (nameNum === 3 || nameNum === 6) {
+                text += `This brand is "Magnetic." Its success depends on aesthetic beauty, storytelling, and social expansion. People will flock to this brand for the <em>Ananda</em> (Joy) it provides. `;
+            } else {
+                text += `This brand is "Intellectual and Fast." It thrives on Mercury and Rahu energies, favoring digital platforms and rapid innovation cycles. `;
             }
-            return getSingleDigit(sum);
-        }
 
-        function calculateLifePath(dob) {
-            const numbers = dob.replace(/-/g, '');
-            let sum = 0;
-            for (let digit of numbers) {
-                sum += parseInt(digit);
+            text += `<br><br>Regarding your personal alignment: Your <strong>Dharma Number</strong> is ${lifePath}. The relationship between ${nameNum} and ${lifePath} results in <strong>${compatibility}</strong>. `;
+            
+            if (compatibility === "Divine Synchronicity") {
+                text += `This is a rare 1-to-1 alignment. Your personal energy and the brand's energy are identical, meaning the brand will feel like an extension of your own soul. Growth will feel effortless.`;
+            } else {
+                text += `There is a complementary resonance here. While you and the brand speak different cosmic languages, you provide the necessary structure to channel the brand's raw energy into profit.`;
             }
-            return getSingleDigit(sum);
+
+            return text;
         }
 
-        function getFinancialVibration(nameNum) {
-            // Formula-based scores: 8 is highest for finance, 4 is stability
-            const scores = { 1: 85, 2: 60, 3: 75, 4: 80, 5: 70, 6: 65, 7: 50, 8: 98, 9: 55 };
-            return scores[nameNum] || 50;
+        function generateRemedies(nameNum) {
+            const remedies = {
+                1: "Focus on 'First-to-Market' strategies. Use Gold or Saffron accents in branding. Launch on Sundays.",
+                2: "Prioritize customer emotions. Use Silver or White in UI. Focus on the 'Home' or 'Wellness' sectors.",
+                3: "Educate your audience. Use Purple or Yellow. Incorporate mentorship or knowledge-sharing into the business model.",
+                4: "Disrupt the status quo. Use Metallic or Electric Blue colors. Focus on high-tech or alternative markets.",
+                5: "Communicate aggressively. Use Green. Leverage social media and short-form content for growth.",
+                6: "Focus on luxury and premium pricing. Use Rose Gold or Pastel Pink. Aesthetic is more important than logic for this brand.",
+                7: "Position the brand as an 'Exclusive Secret'. Use Grey or Violet. Focus on research, depth, and spirituality.",
+                8: "Prepare for a long game. Use Royal Blue or Black. Reliability and legacy are your primary selling points.",
+                9: "Be the 'Hero' brand. Use Red. Focus on speed, competition, and problem-solving."
+            };
+            return remedies[nameNum];
         }
 
-        function analyzeBrand() {
+        function analyzeVedic() {
             const name = document.getElementById('brandName').value;
             const dob = document.getElementById('ownerDob').value;
 
-            if (!name || !dob) {
-                alert("Please fill in both the Business Name and Owner's DOB.");
-                return;
-            }
+            if (!name || !dob) return alert("Consultation requires both inputs.");
 
             document.getElementById('loader').style.display = 'flex';
 
-            // Simulate "AI Processing"
             setTimeout(() => {
-                const nameNum = calculateNameNumber(name);
-                const lifePath = calculateLifePath(dob);
+                const nameNum = getChaldeanNumber(name);
+                const lifePath = calculateVedicLifePath(dob);
                 
-                // Compatibility Formula
+                // Calculations
                 const diff = Math.abs(nameNum - lifePath);
-                let compat = "Excellent";
-                let compatScore = 100 - (diff * 10);
-                if (diff > 2) compat = "Moderate";
-                if (diff > 5) compat = "Challenging";
+                const alignment = Math.max(40, 100 - (diff * 12));
+                const wealthScore = 100 - (Math.abs(nameNum - 8) * 5); // Proximity to 8 (Wealth)
 
-                const financialFreq = getFinancialVibration(nameNum);
-                const strength = Math.round((compatScore + financialFreq + (name.length * 2)) / 2.2);
-                const growth = Math.min(99, Math.round(strength * 1.15));
+                // UI Updates
+                const arch = deityMapping[nameNum];
+                document.getElementById('alignmentScore').innerText = alignment;
+                document.getElementById('vNameNum').innerText = nameNum;
+                document.getElementById('vLifePath').innerText = lifePath;
+                document.getElementById('vWealth').innerText = wealthScore + "%";
+                document.getElementById('tattvaTag').innerText = `PANCHA TATTVA: ${arch.tattva}`;
+                document.getElementById('brandTitle').innerText = arch.title;
+                document.getElementById('mythBadge').innerText = `REGULATED BY: ${arch.deity}`;
+                
+                document.getElementById('detailedInsight').innerHTML = generateDetailedInsight(nameNum, lifePath, name);
+                document.getElementById('remedyText').innerText = generateRemedies(nameNum);
 
-                // Update UI
-                document.getElementById('strengthScore').innerText = strength;
-                document.getElementById('nameNum').innerText = nameNum;
-                document.getElementById('growthPct').innerText = growth + "%";
-                document.getElementById('financialScore').innerText = financialFreq;
-                document.getElementById('compatLevel').innerText = compat;
-                document.getElementById('energyDescription').innerText = energyArchetypes[nameNum];
-
-                // Render Chart
-                renderVibrationChart(nameNum, lifePath, financialFreq / 10);
-
-                // Suggestions
-                generateSuggestions(name, nameNum);
-                generateDates();
+                renderChart(nameNum, lifePath, alignment);
 
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('input-card').style.display = 'none';
                 document.getElementById('results').style.display = 'block';
-            }, 1500);
+            }, 2000);
         }
 
-        function renderVibrationChart(nameNum, lifePath, finance) {
-            const ctx = document.getElementById('vibrationChart').getContext('2d');
-            if (myChart) myChart.destroy();
-            
-            myChart = new Chart(ctx, {
-                type: 'radar',
+        function renderChart(n, l, a) {
+            const ctx = document.getElementById('vedicChart').getContext('2d');
+            if (vChart) vChart.destroy();
+
+            vChart = new Chart(ctx, {
+                type: 'line',
                 data: {
-                    labels: ['Innovation', 'Stability', 'Magnetism', 'Wealth', 'Flow', 'Impact'],
+                    labels: ['Karma', 'Dharma', 'Artha', 'Moksha', 'Kama'],
                     datasets: [{
-                        label: 'Brand Signature',
-                        data: [nameNum, 10-nameNum, lifePath, finance, (nameNum+lifePath)/2, 7],
-                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        label: 'Vedic Resonance',
+                        data: [n, l, (n+l)/2, 10-n, (a/10)],
                         borderColor: '#8B5CF6',
-                        borderWidth: 2,
-                        pointBackgroundColor: '#F472B6'
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#D97706'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 10,
-                            ticks: { display: false }
-                        }
+                        y: { display: false, beginAtZero: true, max: 10 }
                     },
-                    plugins: {
-                        legend: { display: false }
-                    }
+                    plugins: { legend: { display: false } }
                 }
             });
-        }
-
-        function generateSuggestions(name, currentNum) {
-            const container = document.getElementById('altSpellings');
-            container.innerHTML = '';
-            
-            // Logic: Try adding common brand suffixes or modifications to hit "8" (the wealth number) or "1" (the leader)
-            const targets = [8, 1, 5];
-            const vowels = ['a', 'e', 'i', 'o', 'u'];
-            let found = [];
-
-            // Simple algorithmic variations
-            const variants = [name + ' Inc', name + 'ly', name + ' Global', name + ' Digital'];
-            
-            variants.forEach(v => {
-                if (calculateNameNumber(v) !== currentNum) {
-                    found.push(v);
-                }
-            });
-
-            if (found.length === 0) found = [name + ' Plus', name + ' HQ'];
-
-            found.slice(0, 3).forEach(s => {
-                const chip = document.createElement('div');
-                chip.className = 'chip';
-                chip.innerText = s;
-                container.appendChild(chip);
-            });
-        }
-
-        function generateDates() {
-            const container = document.getElementById('launchDates');
-            container.innerHTML = '';
-            
-            const now = new Date();
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-            
-            // Formula for lucky dates: Dates that reduce to 1, 8, or the name number
-            for (let i = 1; i <= 3; i++) {
-                const day = (i * 7) % 28 + 1;
-                const chip = document.createElement('div');
-                chip.className = 'chip';
-                chip.innerText = `${months[i]} ${day}, 2025`;
-                container.appendChild(chip);
-            }
         }
     </script>
 </body>
