@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIVYA-DATA | AI Brand Numerology Analyzer</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --blush-pink: #FCE7F3;
+            --soft-lilac: #EDE9FE;
+            --sky-blue: #E0F2FE;
+            --cream-white: #FFFBFA;
+            --text-dark: #374151;
+            --accent-pink: #F472B6;
+            --accent-purple: #8B5CF6;
+            --gradient-primary: linear-gradient(135deg, #F472B6 0%, #8B5CF6 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--cream-white);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Animated Background Glows */
+        .glow-sphere {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 20s infinite alternate;
+        }
+        .glow-1 { width: 400px; height: 400px; background: var(--blush-pink); top: -100px; right: -100px; }
+        .glow-2 { width: 350px; height: 350px; background: var(--sky-blue); bottom: -100px; left: -100px; }
+        .glow-3 { width: 300px; height: 300px; background: var(--soft-lilac); top: 40%; left: 20%; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 100px) scale(1.1); }
+        }
+
+        header {
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .brand-logo {
+            font-size: 0.8rem;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #6B7280;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            padding: 1rem;
+            z-index: 10;
+        }
+
+        /* Glass Card Style */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4B5563;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.1);
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 14px;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        /* Result Sections */
+        #results {
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--cream-white);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--soft-lilac);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .score-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .score-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #9CA3AF;
+        }
+
+        .grid-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.4);
+            padding: 1rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #6B7280;
+            text-transform: uppercase;
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            height: 250px;
+        }
+
+        .suggestions {
+            margin-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 1.5rem;
+        }
+
+        .chip-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .chip {
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--soft-lilac);
+            color: var(--accent-purple);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--cream-white);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--soft-lilac);
+            border-top: 5px solid var(--accent-pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            font-size: 0.75rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .card { padding: 1.5rem; }
+            .grid-results { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-sphere glow-1"></div>
+    <div class="glow-sphere glow-2"></div>
+    <div class="glow-sphere glow-3"></div>
+
+    <div class="loading-overlay" id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 1rem; font-weight: 300; letter-spacing: 0.1rem;">ANALYZING VIBRATIONS...</p>
+    </div>
+
+    <header>
+        <div class="brand-logo">DIVYA-DATA</div>
+        <h1>Brand Numerology</h1>
+        <p class="subtitle">Align your business energy with cosmic algorithms for maximum growth.</p>
+    </header>
+
+    <main>
+        <section class="card" id="input-card">
+            <div class="form-group">
+                <label for="brandName">Business Name</label>
+                <input type="text" id="brandName" placeholder="e.g. Divya Data Solutions" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="ownerDob">Owner Date of Birth</label>
+                <input type="date" id="ownerDob">
+            </div>
+            <button class="cta-button" onclick="analyzeBrand()">Calculate Alignment</button>
+        </section>
+
+        <section id="results">
+            <div class="card">
+                <div class="score-circle">
+                    <span class="score-value" id="strengthScore">0</span>
+                    <span class="score-label">Strength</span>
+                </div>
+                
+                <p id="energyDescription" style="text-align: center; font-style: italic; color: #6B7280; font-size: 0.9rem; margin-bottom: 2rem;">
+                    Your brand carries the vibration of leadership and innovation.
+                </p>
+
+                <div class="grid-results">
+                    <div class="stat-card">
+                        <span class="stat-label">Name Number</span>
+                        <span class="stat-val" id="nameNum">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Growth Potential</span>
+                        <span class="stat-val" id="growthPct">-%</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Financial Freq</span>
+                        <span class="stat-val" id="financialScore">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Compatibility</span>
+                        <span class="stat-val" id="compatLevel">-</span>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="vibrationChart"></canvas>
+                </div>
+
+                <div class="suggestions">
+                    <label>Suggested Launch Dates</label>
+                    <div class="chip-container" id="launchDates"></div>
+                </div>
+
+                <div class="suggestions">
+                    <label>Optimized Spellings</label>
+                    <div class="chip-container" id="altSpellings"></div>
+                </div>
+
+                <button class="cta-button" style="background: var(--sky-blue); color: var(--accent-purple); margin-top: 2rem;" onclick="location.reload()">New Analysis</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2024 DIVYA-DATA. All rights reserved. <br>
+        Numerology formulas based on Pythagorean standards.
+    </footer>
+
+    <script>
+        // Mapping for Pythagorean Numerology
+        const pythagoreanMap = {
+            'a': 1, 'j': 1, 's': 1,
+            'b': 2, 'k': 2, 't': 2,
+            'c': 3, 'l': 3, 'u': 3,
+            'd': 4, 'm': 4, 'v': 4,
+            'e': 5, 'n': 5, 'w': 5,
+            'f': 6, 'o': 6, 'x': 6,
+            'g': 7, 'p': 7, 'y': 7,
+            'h': 8, 'q': 8, 'z': 8,
+            'i': 9, 'r': 9
+        };
+
+        const energyArchetypes = {
+            1: "The Pioneer: Bold, leadership-oriented, and highly original.",
+            2: "The Harmonizer: Collaborative, balanced, and relationship-focused.",
+            3: "The Creator: Expressive, social, and full of creative spark.",
+            4: "The Architect: Disciplined, stable, and built for longevity.",
+            5: "The Visionary: Dynamic, adaptable, and freedom-seeking.",
+            6: "The Nurturer: Service-oriented, reliable, and magnetic.",
+            7: "The Analyst: Intellectual, mysterious, and specialized.",
+            8: "The Executive: Powerful, results-driven, and financially potent.",
+            9: "The Philanthropist: Global, compassionate, and transformative."
+        };
+
+        let myChart = null;
+
+        function getSingleDigit(n) {
+            while (n > 9) {
+                n = n.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+            }
+            return n;
+        }
+
+        function calculateNameNumber(name) {
+            let sum = 0;
+            const cleaned = name.toLowerCase().replace(/[^a-z]/g, '');
+            for (let char of cleaned) {
+                sum += pythagoreanMap[char] || 0;
+            }
+            return getSingleDigit(sum);
+        }
+
+        function calculateLifePath(dob) {
+            const numbers = dob.replace(/-/g, '');
+            let sum = 0;
+            for (let digit of numbers) {
+                sum += parseInt(digit);
+            }
+            return getSingleDigit(sum);
+        }
+
+        function getFinancialVibration(nameNum) {
+            // Formula-based scores: 8 is highest for finance, 4 is stability
+            const scores = { 1: 85, 2: 60, 3: 75, 4: 80, 5: 70, 6: 65, 7: 50, 8: 98, 9: 55 };
+            return scores[nameNum] || 50;
+        }
+
+        function analyzeBrand() {
+            const name = document.getElementById('brandName').value;
+            const dob = document.getElementById('ownerDob').value;
+
+            if (!name || !dob) {
+                alert("Please fill in both the Business Name and Owner's DOB.");
+                return;
+            }
+
+            document.getElementById('loader').style.display = 'flex';
+
+            // Simulate "AI Processing"
+            setTimeout(() => {
+                const nameNum = calculateNameNumber(name);
+                const lifePath = calculateLifePath(dob);
+                
+                // Compatibility Formula
+                const diff = Math.abs(nameNum - lifePath);
+                let compat = "Excellent";
+                let compatScore = 100 - (diff * 10);
+                if (diff > 2) compat = "Moderate";
+                if (diff > 5) compat = "Challenging";
+
+                const financialFreq = getFinancialVibration(nameNum);
+                const strength = Math.round((compatScore + financialFreq + (name.length * 2)) / 2.2);
+                const growth = Math.min(99, Math.round(strength * 1.15));
+
+                // Update UI
+                document.getElementById('strengthScore').innerText = strength;
+                document.getElementById('nameNum').innerText = nameNum;
+                document.getElementById('growthPct').innerText = growth + "%";
+                document.getElementById('financialScore').innerText = financialFreq;
+                document.getElementById('compatLevel').innerText = compat;
+                document.getElementById('energyDescription').innerText = energyArchetypes[nameNum];
+
+                // Render Chart
+                renderVibrationChart(nameNum, lifePath, financialFreq / 10);
+
+                // Suggestions
+                generateSuggestions(name, nameNum);
+                generateDates();
+
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('input-card').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+            }, 1500);
+        }
+
+        function renderVibrationChart(nameNum, lifePath, finance) {
+            const ctx = document.getElementById('vibrationChart').getContext('2d');
+            if (myChart) myChart.destroy();
+            
+            myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Innovation', 'Stability', 'Magnetism', 'Wealth', 'Flow', 'Impact'],
+                    datasets: [{
+                        label: 'Brand Signature',
+                        data: [nameNum, 10-nameNum, lifePath, finance, (nameNum+lifePath)/2, 7],
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: '#8B5CF6',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#F472B6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function generateSuggestions(name, currentNum) {
+            const container = document.getElementById('altSpellings');
+            container.innerHTML = '';
+            
+            // Logic: Try adding common brand suffixes or modifications to hit "8" (the wealth number) or "1" (the leader)
+            const targets = [8, 1, 5];
+            const vowels = ['a', 'e', 'i', 'o', 'u'];
+            let found = [];
+
+            // Simple algorithmic variations
+            const variants = [name + ' Inc', name + 'ly', name + ' Global', name + ' Digital'];
+            
+            variants.forEach(v => {
+                if (calculateNameNumber(v) !== currentNum) {
+                    found.push(v);
+                }
+            });
+
+            if (found.length === 0) found = [name + ' Plus', name + ' HQ'];
+
+            found.slice(0, 3).forEach(s => {
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.innerText = s;
+                container.appendChild(chip);
+            });
+        }
+
+        function generateDates() {
+            const container = document.getElementById('launchDates');
+            container.innerHTML = '';
+            
+            const now = new Date();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            
+            // Formula for lucky dates: Dates that reduce to 1, 8, or the name number
+            for (let i = 1; i <= 3; i++) {
+                const day = (i * 7) % 28 + 1;
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.innerText = `${months[i]} ${day}, 2025`;
+                container.appendChild(chip);
+            }
+        }
+    </script>
+</body>
+</html>
